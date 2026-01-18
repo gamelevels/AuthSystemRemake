@@ -1,0 +1,28 @@
+{
+  "name": "authremake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamelevels/AuthSystemRemake.git"
+  },
+  "keywords": [
+    "Authentication"
+  ],
+  "author": "GameLevels",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gamelevels/AuthSystemRemake/issues"
+  },
+  "homepage": "https://github.com/gamelevels/AuthSystemRemake#readme",
+  "dependencies": {
+    "dotenv": "^16.6.1"
+  }
+}

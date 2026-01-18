@@ -1,8 +1,4 @@
-site_information.txt
-structure.txt
-html.html
-fill-out.profile_default
-data.json
+node_modules/
 
 *.pem
 .png
