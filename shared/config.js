@@ -2,10 +2,15 @@ require('dotenv').config();
 
 class Config {
     constructor() {
-        if (Config.instance) {
-            return Config.instance;
+        if (!Config._instance){
+            Config.instance = this;
+            this._LoadConfig();
         }
+        return Config.instance;
 
+    };
+
+    _LoadConfig() {
         this.apiPort = process.env.APIPort || 1337;
         this.dbHost = process.env.DBHost || 'localhost';
         this.dbPort = process.env.DBPort || 3307;
@@ -13,9 +18,7 @@ class Config {
         this.dbPassword = process.env.DBPassword || 'password';
         this.dbName = process.env.DBName || 'database';
         this.masterKey = process.env.MasterKey || `apiKey`;
-
-        Config.instance = this;
-    }
+    };
 }
 
 module.exports = Config;

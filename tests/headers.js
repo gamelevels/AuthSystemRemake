@@ -1,8 +1,12 @@
-import { config } from '../shared/config.js';
+const axios = require('axios');
+const Config = new (require('../shared/config.js'))();
 
-const res = await fetch('http://localhost:1337', {
-    method: 'POST',
-    headers: {
-        'authorization': config.masterKey
-    }
-});
+function testHeaders() {
+    return axios.post(`http://localhost:${Config.apiPort}/`, {}, {
+        headers: {
+            'authorization': Config.masterKey
+        }
+    })
+};
+
+testHeaders().then(response => {console.log(response.data)});

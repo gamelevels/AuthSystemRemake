@@ -1,3 +1,39 @@
+
+const Roles = {
+    SystemAdmin: 'SystemAdmin',
+    Developer: 'Developer',
+    Client: 'Client'
+}
+
+function UserModel({Username, Email, Role, Level, ProgramID, RegisterToken, Expiration, HWID, LastLoginDate, CreatedAt}) {
+    return {
+        Username: Username,
+        email:  Email,
+        role: Role,
+        level: Level,
+        programID: ProgramID,
+        registerToken: RegisterToken,
+        expiration: Expiration,
+        hwid: HWID,
+        lastLoginDate: LastLoginDate,
+        createdAt: CreatedAt
+    };
+};
+
+function UserLoginModel({Username, Email, PasswordHash, HWID}) {
+    return {
+        Username,
+        Email,
+        PasswordHash,
+        HWID
+    }
+};
+
+module.exports = {
+    UserModel,
+    UserLoginModel
+};
+
 // CREATE TABLE Users (
 //     Username       VARCHAR(64)    NOT NULL,
 //     Email          VARCHAR(128)   NOT NULL,

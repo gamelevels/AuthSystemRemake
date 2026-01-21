@@ -103,6 +103,7 @@ CREATE TABLE APIs (
 CREATE TABLE Webhooks (
     WebhookID    CHAR(36)       NOT NULL DEFAULT (UUID()),
     ProgramID    CHAR(36)       NOT NULL,
+    `Type`       ENUM('Discord.com', 'Telegram') NOT NULL,
     Link         VARCHAR(255)   NOT NULL,
     Title        VARCHAR(64)    NOT NULL,
     Enabled      BOOLEAN        DEFAULT TRUE,
