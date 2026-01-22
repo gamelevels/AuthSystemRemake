@@ -1,6 +1,6 @@
 const express = require('express');
 const { LogRequest, GetAPIKey } = require('./shared/middleware');
-const Config = new (require('./shared/config'))();
+const Config = require('./shared/config');
 console.log(Config)
 
 const app = express();

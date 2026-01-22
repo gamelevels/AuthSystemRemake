@@ -1,4 +1,4 @@
-const config = new (require('./config'))();
+const config = require('./config');
 
 const LogRequest = (req, res, next) => {
     const requestTime = new Date();
