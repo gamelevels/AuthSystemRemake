@@ -1,39 +1,39 @@
 CREATE TABLE Programs (
     ProgramID         CHAR(36)        NOT NULL,
-    Name              VARCHAR(40)     NOT NULL,
-    Description       VARCHAR(255)    NOT NULL,
+    `Name`            VARCHAR(40)     NOT NULL,
+    `Description`     VARCHAR(255)    NOT NULL,
     ProgramVersion    VARCHAR(15)     NOT NULL,
     MOTD              VARCHAR(255)    NULL,
     DownloadLink      VARCHAR(255)    NULL,
     OwnerID           CHAR(36)        NOT NULL,
     Tier              VARCHAR(15)     NOT NULL,
     MaxRequestsMonth  INT             NOT NULL,
-    RequestPerMonth   INT             NOT NULL,
+    RequestPerMonth   INT             NOT NULL DEFAULT 0,
     MaxUsers          INT             NOT NULL,
     MaxApiKeys        INT             NOT NULL,
     MaxWebhooks       INT             NOT NULL,
     ExpirationDate    DATETIME        NOT NULL,
     CreatedAt         DATETIME        DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt         DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    Enabled           BOOLEAN         DEFAULT TRUE,
+    `Enabled`         BOOLEAN         DEFAULT TRUE,
     AutoUpdate        BOOLEAN         DEFAULT TRUE,
     PRIMARY KEY (ProgramID)
 );
 
 CREATE TABLE Levels (
     ProgramID    CHAR(36)      NOT NULL,
-    Level        TINYINT       NOT NULL,
-    Value        INT           NULL,
+    `Level`      TINYINT       NOT NULL,
+    `Value`      INT           NULL,
     ValueLabel   VARCHAR(32)   NULL,
     CreatedAt    DATETIME      DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (ProgramID, Level),
+    PRIMARY KEY (ProgramID, `Level`),
     FOREIGN KEY (ProgramID) REFERENCES Programs(ProgramID)
 );
 
 CREATE TABLE RegisterTokens (
     RegisterToken   CHAR(36)      NOT NULL,
-    Level           SMALLINT      NOT NULL,
-    Days            SMALLINT      NOT NULL,
+    `Level`         SMALLINT      NOT NULL,
+    `Days`          SMALLINT      NOT NULL,
     UsedBy          VARCHAR(64)   NULL,
     UsedDate        DATETIME      NULL,
     ProgramID       CHAR(36)      NOT NULL,
@@ -42,12 +42,13 @@ CREATE TABLE RegisterTokens (
     FOREIGN KEY (ProgramID) REFERENCES Programs(ProgramID)
 );
 
+
 CREATE TABLE Users (
     Username       VARCHAR(64)    NOT NULL,
     Email          VARCHAR(128)   NOT NULL,
     PasswordHash   CHAR(64)       NOT NULL,
-    Role           ENUM('SystemAdmin','Developer','Client') NOT NULL,
-    Level          TINYINT        NOT NULL,
+    `Role`         ENUM('SystemAdmin','Developer','Client') NOT NULL,
+    `Level`        TINYINT        NOT NULL,
     ProgramID      CHAR(36)       NOT NULL,
     RegisterToken  CHAR(36)       NOT NULL,
     Expiration     DATETIME       NOT NULL,  
@@ -78,7 +79,7 @@ CREATE TABLE Tickets (
 CREATE TABLE TicketMessages (
     TicketID      CHAR(36)       NOT NULL,
     ProgramID     CHAR(36)       NOT NULL,
-    Message       TEXT           NOT NULL,
+    `Message`     TEXT           NOT NULL,
     Sender        VARCHAR(64)    NOT NULL,
     SentTime      DATETIME       DEFAULT CURRENT_TIMESTAMP,
     IsStaff       BOOLEAN        DEFAULT FALSE,
@@ -93,7 +94,7 @@ CREATE TABLE APIs (
     ProgramID             CHAR(36)       NOT NULL,
     Link                  VARCHAR(255)   NOT NULL,
     ParameterPlaceHolder  VARCHAR(32)    NOT NULL,
-    Enabled               BOOLEAN        DEFAULT TRUE,
+    `Enabled`             BOOLEAN        DEFAULT TRUE,
     CreatedAt             DATETIME       DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt             DATETIME       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (APIID),
@@ -106,7 +107,7 @@ CREATE TABLE Webhooks (
     `Type`       ENUM('Discord.com', 'Telegram') NOT NULL,
     Link         VARCHAR(255)   NOT NULL,
     Title        VARCHAR(64)    NOT NULL,
-    Enabled      BOOLEAN        DEFAULT TRUE,
+    `Enabled`    BOOLEAN        DEFAULT TRUE,
     CreatedAt    DATETIME       DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt    DATETIME       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (WebhookID),
@@ -121,7 +122,7 @@ CREATE TABLE APIRequestLogs (
     RequestData  TEXT           NOT NULL,
     StatusCode   INT            NOT NULL,
     ResponseTime FLOAT          NOT NULL,
-    Timestamp    DATETIME       DEFAULT CURRENT_TIMESTAMP,
+    `Timestamp`  DATETIME       DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (RequestID),
     FOREIGN KEY (ProgramID) REFERENCES Programs(ProgramID),
     FOREIGN KEY (UserID) REFERENCES Users(Username)
@@ -133,9 +134,9 @@ CREATE TABLE WebhookLogs (
     WebhookID     CHAR(36)       NOT NULL,
     TriggeredEvent VARCHAR(64)   NOT NULL,
     Payload       TEXT           NOT NULL,
-    Status        INT            NOT NULL,
+    `Status`      INT            NOT NULL,
     ResponseTime  FLOAT          NOT NULL,
-    Timestamp     DATETIME       DEFAULT CURRENT_TIMESTAMP,
+    `Timestamp`   DATETIME       DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (WebhookLogID),
     FOREIGN KEY (ProgramID) REFERENCES Programs(ProgramID),
     FOREIGN KEY (WebhookID) REFERENCES Webhooks(WebhookID)
