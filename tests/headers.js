@@ -1,8 +1,11 @@
 const axios = require('axios');
-const Config = new (require('../shared/config.js'))();
+const Config = require('../shared/config.js')
 
 function testHeaders() {
-    return axios.post(`http://localhost:${Config.apiPort}/`, {}, {
+    return axios.post(`http://localhost:${Config.apiPort}/user/register`, {
+        username: "testuser",
+        password: "testpassword"
+    }, {
         headers: {
             'authorization': Config.masterKey
         }
